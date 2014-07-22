@@ -1,0 +1,94 @@
+<?php $this->helpers('core'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->inflateProc(function () { ?>
+    <?php _text_message($this); ?>
+    <div class="cart">
+        <ul class="row list-unstyled">
+            <li class="col-md-8 col-sm-7 col-xs-8">
+                <h3>购物车</h3>
+            </li>
+            <li class="col-md-2 col-sm-3 col-xs-3 text-right">
+                <br/>
+                价格
+            </li>
+            <li class="col-sm-2 col-xs-3 text-right">
+                <br class="hidden-xs"/>
+                数量
+            </li>
+        </ul>
+        <hr/>
+        <?php $cart = $this['cart']; ?>
+        <?php if (!empty($cart)) { ?>
+            <?php foreach ($cart as $item) { ?>
+                <ul class="row list-unstyled">
+                    <li class="col-md-8 col-sm-7 col-xs-8">
+                        <div class="col-md-4 hidden-xs hidden-sm">
+                            <a href="<?php _url_mca('goods', 'index', 'show', $item['id']); ?>" target="_blank">
+                                <img data-src="holder.js/100%x200" class="img-rounded width-full"
+                                     src="<?php _h($item['thumb']); ?>"/>
+                            </a>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                            <h4>
+                                <a href="<?php _url_mca('goods', 'index', 'show', $item['id']); ?>" target="_blank">
+                                    <?php _h($item['name']); ?>
+                                </a>
+                            </h4>
+
+                            <p class="help-block">
+                                <small>
+                                    <?php _h($item['description']); ?>
+                                </small>
+                            </p>
+                            <p>
+                                <small>
+                                    <a href="<?php _url_a('remove'); ?>" data-toggle="fruit-post"
+                                       data-fields="{goods:<?php _e($item['id']); ?>}">删除</a>
+                                </small>
+                            </p>
+                        </div>
+                    </li>
+                    <Li class="col-md-2 col-sm-3 col-xs-4 text-right"><br/>
+                        <strong class="price"><?php _nice_currency($item['price']); ?>
+                            元/<?php _e($item['unit']); ?></strong>
+                    </li>
+                    <li class="col-sm-2 col-xs-4 text-right">
+                        <br/>
+                        <input type="text" class="amount form-control pull-right width-xs"
+                               value="<?php _e($item['amount']) ?>" data-fields="<?php _e($item['id']); ?>"/>
+                    </li>
+                </ul>
+                <hr/>
+            <?php } ?>
+            <div class="row">
+                <div class="col-sm-6 col-xs-5">
+                    <strong class="price">
+                        共有<?php count($cart); ?>件商品(<span id="cartTotal"><?php _nice_currency($this['total']); ?></span>元）
+                    </strong>
+                </div>
+                <div class="col-sm-6 col-xs-7 text-right">
+                    <a href="<?php _url_ca('submit'); ?>" class="btn btn-lg btn-primary">立即结算</a>
+                    &nbsp;&nbsp;
+                    <a href="/">继续购物&gt;&gt;</a>
+                </div>
+            </div>
+        <?php } else { ?>
+            <p class="help-block">当前购物车为空</p>
+            <p>
+                <a href="/"><span class="red"> 继续购物 &gt;&gt;</span></a>
+            </p>
+        <?php } ?>
+    </div>
+<?php }, array(), 'work'); ?>
+<?php $this->beginPlace('foot'); ?>
+    <script type="text/javascript">
+        $('.amount').on('blur', function () {
+            var goods = $(this).attr('data-fields');
+            var amount = $(this).val();
+
+            $.post('<?php _url_a('change'); ?>', {goods: goods, amount: amount}, function (data) {
+                $('#cartTotal').html(data);
+            });
+        });
+    </script>
+<?php $this->endPlace(); ?>

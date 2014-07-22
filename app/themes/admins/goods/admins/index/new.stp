@@ -1,0 +1,124 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-xs-9">
+            <h2>增加商品</h2>
+        </div>
+        <div class="col-xs-3 text-right">
+            <br/>
+            <a href="<?php _url_af('index'); ?>" class="btn btn-default">
+                <i class="icon-double-angle-left"></i>
+                <span class="hidden-xs">
+                    返回上一级
+                </span>
+            </a>
+        </div>
+    </div>
+    <hr/>
+<?php $form = new Form($this); ?>
+<?php $form->begin(array('class' => 'form-horizontal', 'enctype' => 'multipart/form-data')); ?>
+    <div class="row">
+        <div class="col-md-9">
+            <fieldset>
+                <div class="form-group">
+                    <?php $form->label('goods.name', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '商品名称：')); ?>
+                    <div class="col-md-6 col-sm-9">
+                        <?php $form->text('goods.name', array('class' => 'form-control')); ?>
+                        <?php $form->help('goods.name'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-4 col-sm-2 col-md-offset-2 col-sm-offset-4">
+                        <label>
+                            <?php $form->checkbox('goods.home', '1'); ?>
+                            首页推荐
+                        </label>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <label>
+                            <?php $form->checkbox('goods.offer', '1'); ?>
+                            普通推荐
+                        </label>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <label>
+                            <?php $form->checkbox('goods.sale', array('value' => '1', 'checked' => 'checked')); ?>
+                            上架
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('goods.thumb', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '缩略图：')); ?>
+                    <div class="col-md-6 col-sm-8">
+                        <?php $form->file('goods.thumb', array('class' => 'form-control')); ?>
+                        <?php $form->help('goods.thumb'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('goods.category', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '分类：')); ?>
+                    <div class="col-md-6 col-sm-8">
+                        <?php $form->select('goods.category', array(
+                            'class' => 'form-control',
+                            'options' => $this['cats']->fetchList('id,concat(name ," - (", pinyin,")" )')
+                        )); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('goods.price', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '价格：')); ?>
+
+                    <div class="col-md-3 col-sm-5">
+                        <?php $form->text('goods.price', array('class' => 'form-control')); ?>
+                        <?php $form->help('goods.price'); ?>
+                    </div>
+                    <?php $form->label('goods.unit', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '单位：')); ?>
+
+                    <div class="col-md-2 col-sm-4">
+                        <?php $form->text('goods.unit', array('class' => 'form-control')); ?>
+                        <?php $form->help('goods.unit'); ?>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <?php $form->label('goods.description', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '说明：')); ?>
+                    <div class="col-md-8 col-sm-10">
+                        <?php $form->textarea('goods.description', array('class' => 'form-control')); ?>
+                        <?php $form->help('goods.description'); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>详细说明</legend>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <?php $form->textarea('goodsDetail.detail', array('class' => 'form-control unbordered', 'rows' => 15)); ?>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <hr/>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
+        <a href="<?php _url_af('index'); ?>" class="btn btn-default">取消</a>
+    </div>
+<?php $form->end(); ?>
+<?php $this->endPlace(); ?>
+<?php $this->beginPlace('foot'); ?>
+    <script type="text/javascript" src="/plugins/kindeditor/kindeditor.js"></script>
+    <script type="text/javascript">
+        KindEditor.ready(function (K) {
+            var editor = K.create('#goodsDetail-detail', {
+                resizeType: 2,
+                allowFileManager: true,
+                fileManagerJson: '<?php _url_ca('file');  ?>',
+                allowFileUpload: true,
+                uploadJson: '<?php _url_ca('file','upload'); ?>',
+                items: ['formatblock', '|', 'bold', 'italic', 'strikethrough', 'underline', 'removeformat', '|',
+                    'justifyleft', 'justifycenter', 'insertorderedlist', 'insertunorderlist', '|',
+                    'image', 'table', 'hr', '|', 'link', 'unlink', '|', 'source', 'fullscreen']
+            });
+        });
+    </script>
+<?php $this->endPlace(); ?>

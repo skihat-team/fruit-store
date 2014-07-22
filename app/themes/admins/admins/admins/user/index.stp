@@ -1,0 +1,99 @@
+<?php $this->helpers('core', 'paginate'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-sm-3 col-xs-3">
+            <h2>管理员</h2>
+        </div>
+        <div class="col-sm-9 col-xs-9">
+            <br/>
+
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <a id="allowMore" href="<?php _url_af('allow'); ?>" class="btn btn-default"
+                       data-fields="#chkUsers" data-toggle="fruit-post">
+                        <i class="icon-ok-circle"></i>
+                        <span class="hidden-xs">开启访问</span>
+                    </a>
+                    <a id="denyMore" href="<?php _url_af('deny'); ?>" class="btn btn-default"
+                       data-fields="#chkUsers" data-toggle="fruit-post">
+                        <i class="icon-ban-circle"></i>
+                        <span class="hidden-xs">禁止访问</span>
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <a href="<?php _url_a('new'); ?>" class="btn btn-default">
+                        <i class="icon-plus"></i>
+                        <span class="hidden-xs"> 新建管理员</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+<?php _text_message($this); ?>
+<?php if ($users = $this['users']->fields('id,name,allow_access,created,login_lasted_date,login_count')->fetchObjects()) { ?>
+    <div class="archive-group" id="users">
+        <ul class="row list-unstyled archive-group-heading">
+            <li class="col-lg-7 col-md-6 col-sm-6 col-xs-7">
+                <label><input id="chkUsers" type="checkbox" data-toggle="fruit-chkall"
+                              data-target="#users .archive-group-item"/>
+                </label>
+                &nbsp;
+                管理员
+            </li>
+            <li class="col-md-2 col-sm-3 col-xs-5">
+                创建时间
+            </li>
+            <li class="col-md-2 col-sm-3 hidden-sm col-xs-7">
+                最后登录
+            </li>
+            <li class="col-lg-1 col-md-2 col-sm-2 col-xs-5">
+                操作
+            </li>
+        </ul>
+        <?php foreach ($users as $user) { ?>
+            <ul class="list-unstyled row archive-group-item click-trigger">
+                <li class="col-lg-7 col-md-6 col-sm-6 col-xs-7">
+                    <label><input type="checkbox" value="<?php _e($user->id); ?>"/> </label>&nbsp;
+                    <a href="#" class="big-text"><?php echo $user->name; ?></a>
+                    <?php if ($user->allow_access == AdminsUser::ACCESS_DENY) { ?>
+                        <span class="label label-danger">禁</span>
+                    <?php } ?>
+                    <small class="inline-help"><?php _nice_last_time($user->login_lasted_date); ?>
+                        登录，共登录<?php echo $user->login_count; ?>次。
+                    </small>
+                </li>
+                <li class="col-md-2 col-sm-3 col-xs-5">
+                    <?php _nice_date($user->created); ?>
+                </li>
+                <li class="col-md-2 col-sm-3 hidden-sm col-xs-7">
+                    <?php if ($user->login_lasted_date) { ?>
+                        <?php _nice_date($user->login_lasted_date); ?>
+                    <?php } else { ?>
+                        未进行登录
+                    <?php } ?>
+                </li>
+                <li class="col-lg-1 col-md-2 col-sm-2 col-xs-5">
+                    <a href="<?php _url_af('edit', $user->id); ?>" class="btn btn-default btn-xs"><i
+                            class="icon-edit"></i></a>
+                    <a href="<?php _url_af('delete'); ?>" class="btn btn-default btn-xs"
+                       data-fields="{id:<?php _e($user->id); ?>}" data-toggle="fruit-post">
+                        <i class="icon-trash"></i>
+                    </a>
+                </li>
+            </ul>
+        <?php } ?>
+    </div>
+    <div class="pagination-container">
+        <?php _paginate_numbers($this['users']); ?>
+    </div>
+<?php } else { ?>
+    <div class="empty">
+        <p class="help-block">
+            根据当前查询，未找到任何管理员,
+            <a href="<?php _url_a('new'); ?>">点击这里增加管理员</a>
+        </p>
+    </div>
+<?php } ?>
+<?php $this->endPlace(); ?>

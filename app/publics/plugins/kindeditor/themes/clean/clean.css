@@ -1,0 +1,134 @@
+.ke-container-clean {
+    border: solid 1px #dedede;
+}
+
+.ke-container-clean .ke-toolbar {
+    background: #fafafa;
+    padding: 4px 8px;
+    overflow: hidden;
+}
+
+.ke-container-clean .ke-toolbar .ke-outline {
+    background-color: transparent;
+    margin: 1px;
+    padding: 3px 4px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.ke-container-clean .ke-toolbar .ke-on {
+    border: 1px solid #5690D2;
+}
+
+.ke-container-clean .ke-toolbar .ke-selected {
+    border: 1px solid #5690D2;
+    background-color: #E9EFF6;
+}
+
+.ke-container-clean .ke-toolbar  .ke-disabled {
+    cursor: default;
+}
+
+/* statusbar */
+.ke-container-clean .ke-statusbar {
+    position: relative;
+    background-color: #FFF;
+    border-top: 1px solid #CCCCCC;
+    font-size: 0;
+    line-height: 0;
+    *height: 12px;
+    overflow: hidden;
+    text-align: center;
+    cursor: s-resize;
+}
+
+.ke-edit {
+    border-top: solid 1px #dedede;
+}
+
+.ke-content {
+    text-align: left;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.ke-input-text {
+    padding:5px;
+    height: 25px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.ke-content p {
+    text-indent: 2em;
+    font-family: '宋体';
+    line-height: 2em;
+}
+
+.ke-content img {
+    text-align: center;
+}
+
+/* menu */
+.ke-menu-clean {
+    border: 1px solid #A0A0A0;
+    background-color: #FFF;
+    color: #222222;
+    padding: 2px;
+    font-family: "sans serif", tahoma, verdana, helvetica;
+    font-size: 12px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.ke-menu-clean .ke-menu-item {
+    border: 1px solid #FFF;
+    background-color: #FFF;
+    color: #222222;
+    height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.ke-menu-clean .ke-menu-item-on {
+    border: 1px solid #5690D2;
+    background-color: #FFF;
+}
+
+/* colorpicker */
+.ke-colorpicker-clean {
+    border: 1px solid #A0A0A0;
+    background-color: #FEFEFE;
+    color: #222222;
+    padding: 2px;
+}
+
+.ke-colorpicker-clean .ke-colorpicker-cell {
+    font-size: 0;
+    line-height: 0;
+    border: 1px solid #FEFEFE;
+    cursor: pointer;
+    margin: 3px;
+    padding: 0;
+}
+
+.ke-colorpicker-clean .ke-colorpicker-cell-top {
+    font-family: "sans serif", tahoma, verdana, helvetica;
+    font-size: 12px;
+    line-height: 24px;
+    border: 1px solid #FEFEFE;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.ke-colorpicker-clean .ke-colorpicker-cell-on {
+    border: 1px solid #5690D2;
+}
+
+.ke-colorpicker-clean .ke-colorpicker-cell-selected {
+    border: 1px solid #2446AB;
+}

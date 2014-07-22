@@ -1,0 +1,102 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <h2>提交订单</h2>
+    <hr/>
+<?php $form = new Form($this); ?>
+<?php $form->begin(array('class' => 'form-horizontal')); ?>
+    <div class="cart">
+        <?php foreach ($this['cart'] as $item) { ?>
+            <ul class="row list-unstyled">
+                <li class="col-md-7 col-sm-7 col-xs-8">
+                    <h4>
+                        <a href="<?php _url_mca('goods', 'index', 'show', $item['id']); ?>" target="_blank">
+                            <?php _h($item['name']); ?>
+                        </a>
+                    </h4>
+
+                    <p class="help-block">
+                        <small>
+                            <?php _h($item['description']); ?>
+                        </small>
+                    </p>
+                </li>
+                <li class="col-sm-3 col-xs-4 text-right"><br>
+                    <strong class="price"><?php _nice_currency($item['price']); ?>
+                        元/<?php _e($item['unit']); ?></strong>
+                </li>
+                <li class="col-sm-2 col-xs-4 text-center">
+                    <br>
+                    <?php _e($item['amount']); ?>
+                </li>
+            </ul>
+            <hr>
+        <?php } ?>
+        <p class="text-right">
+            <a href="<?php _url_ca('index', 'index'); ?>">
+                修改订单
+            </a>
+            &nbsp;|&nbsp;
+            <strong class="price">
+                <span class="red">共有<?php echo count($this['cart']); ?>件商品（<?php _nice_currency($this['total']); ?>
+                    元）</span>
+            </strong>
+        </p>
+    </div>
+    <br/>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <fieldset>
+                <legend>配送信息</legend>
+                <div class="form-group">
+                    <?php $form->label('order.telephone', array('class' => 'control-label col-sm-2', 'title' => '收货人姓名：')); ?>
+                    <div class="col-md-3 col-xs-5">
+                        <?php $form->text('order.consignee', array('class' => 'form-control')); ?>
+                        <?php $form->help('order.consignee'); ?>
+                    </div>
+
+                    <?php $form->label('order.consignee_address', array('class' => 'control-label col-sm-2', 'title' => '收货地址：')); ?>
+                    <div class="col-md-4 col-xs-8">
+                        <?php $form->text('order.consignee_address', array('class' => 'form-control')); ?>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('order.telephone', array('class' => 'control-label col-sm-2', 'title' => '联系电话：')); ?>
+                    <div class="col-md-3 col-xs-5">
+                        <?php $form->text('order.telephone', array('class' => 'form-control')); ?>
+                        <?php $form->help('order.telephone'); ?>
+                    </div>
+
+                    <?php $form->label('order.description', array('class' => 'control-label col-sm-2', 'title' => '配送时间：')); ?>
+                    <div class="col-md-3 col-xs-6">
+                        <?php $form->text('order.description', array('class' => 'form-control')); ?>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <br/><br/>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <fieldset>
+                <legend>
+                    支付方式
+                </legend>
+                <p class="help-block">
+                    目前Fruit Store仅支持货到付款，请准备好零钞，我们的配送人员到达后当面支付。
+                </p>
+
+                <p>
+                    当商品送达时，你一共需要支付：<strong class="price">￥120.00 元</strong>
+                </p>
+            </fieldset>
+        </div>
+    </div>
+    <br/><br/>
+    <hr/>
+    <button type="submit" class="btn btn-primary btn-lg">确认并提交订单</button>
+<?php $form->end(); ?>
+<?php $this->endPlace(); ?>

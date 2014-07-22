@@ -1,0 +1,54 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-xs-9">
+            <h2>新增分类</h2>
+        </div>
+        <div class="col-xs-3 text-right">
+            <br/>
+            <a href="<?php _url_a('index'); ?>" class="btn btn-default">
+                <i class="icon-double-angle-left"></i>
+                <span class="hidden-xs">
+                    返回上一级
+                </span>
+            </a>
+        </div>
+    </div>
+    <hr/>
+<?php $form = new Form($this); ?>
+<?php $form->begin(array('class' => 'form-horizontal')); ?>
+    <div class="row">
+        <div class="col-md-9">
+            <fieldset>
+                <div class="form-group">
+                    <?php $form->label('category.name', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '分类名称：')); ?>
+                    <div class="col-md-5 col-sm-7">
+                        <?php $form->text('category.name', array('class' => 'form-control')); ?>
+                        <?php $form->help('category.name'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('category.pinyin', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '拼音码：')); ?>
+                    <div class="col-md-5 col-sm-7">
+                        <?php $form->text('category.pinyin', array('class' => 'form-control')); ?>
+                        <?php $form->help('category.pinyin'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('category.description', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '说明：')); ?>
+
+                    <div class="col-md-8 col-sm-10">
+                        <?php $form->textarea('category.description', array('class' => 'form-control')); ?>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <hr/>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
+        <a href="<?php _url_a('index'); ?>" class="btn btn-default">取消</a>
+    </div>
+<?php $form->end(); ?>
+<?php $this->endPlace();

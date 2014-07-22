@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="jumbotron" style="background: url('/images/banner.jpg')">
+        <h1>Fruit Store</h1>
+
+        <p>
+            Fruit Store 是一个Skihat应用框架的演示程序，用于展示Skihat框架的相关功能。
+        </p>
+        <br/>
+
+        <p>
+            <a class="btn btn-primary btn-lg" href="<?php _url_a('about'); ?>">
+                <i class=" icon-plus-sign-alt"></i> 了解更多
+            </a>
+        </p>
+    </div>
+</div>

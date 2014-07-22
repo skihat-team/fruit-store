@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title><?php $this->place('title', 'Fruit Store'); ?></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="skihat"/>
+    <!-- Bootstrap core CSS -->
+    <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/plugins/awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!--[if IE 7]>
+    <link href="/plugins/awesome/css/font-awesome-ie7.mini.css" rel="stylesheet"/>
+    <![endif]-->
+    <link href="/themes/defaults/style.css" rel="stylesheet"/>
+    <?php $this->place('head'); ?>
+</head>
+<body>
+<header class="layout-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-7">
+                <h1>
+                    <a href="javascript:void(0);" class="navbar-toggle" data-toggle="collapse"
+                       data-target=".navbar-collapse">
+                        <i class="icon-reorder"></i>
+                    </a>
+                    <a href="<?php _url_mpca('admins', 'admins'); ?>" class="logo" title="Fruit Store">
+                        Administrators
+                    </a>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<hr/>
+<article class="layout-article">
+    <div class="container">
+        <?php $this->place('work', 'default work'); ?>
+    </div>
+</article>
+<?php $this->inflateFile('__elements.footer'); ?>
+</body>
+<?php $this->place('foot'); ?>
+</html>

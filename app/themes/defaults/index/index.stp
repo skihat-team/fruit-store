@@ -1,0 +1,15 @@
+<?php $this->helpers('core'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->inflateFile('__elements.banner', 'banner'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-md-9 col-sm-12 ">
+            <h2>特价商品</h2>
+            <?php $this->inflateFile('__elements.goods'); ?>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <h2>推荐商品</h2>
+            <?php $this->inflateFile('__elements.offers'); ?>
+        </div>
+    </div>
+<?php $this->endPlace(); ?>

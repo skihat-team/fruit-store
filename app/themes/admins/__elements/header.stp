@@ -1,0 +1,33 @@
+<header class="layout-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-7">
+                <h1>
+                    <a href="javascript:void(0);" class="navbar-toggle" data-toggle="collapse"
+                       data-target=".navbar-collapse">
+                        <i class="icon-reorder"></i>
+                    </a>
+                    <a href="<?php _url_mpca('admins', 'admins'); ?>" class="logo" title="Fruit Store">
+                        Administrators
+                    </a>
+                </h1>
+            </div>
+            <div class="col-xs-5">
+                <br/>
+
+                <p class="text-right">
+                    <small>
+                        <a href="<?php _url_mpca('admins', 'admins', 'profile') ?>">
+                            <i class="icon-user"></i> <?php _e($this['identity']->name); ?>
+                        </a>
+                        &nbsp;|&nbsp;
+                        <a href="<?php _url_mpca('admins', 'admins', 'index', 'logout'); ?>" onclick="return
+                            confirm('请确认是否退出？');">
+                            <i class="icon-signout"></i> 退出
+                        </a>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</header>

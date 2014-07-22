@@ -1,0 +1,52 @@
+<?php $this->helpers('core'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <h2>关于Fruit Store</h2>
+    <hr/>
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <h3>简介</h3>
+
+            <p class="text-indent">
+                Fruit Store 是一个Skihat应用框架的演示程序，用于展示Skihat框架的相关功能。
+                应用模拟了一家提供水果销售的网上商店，允许对水果进行分类查看，详细显示和完整的后台管理功能。<br/>
+            </p>
+
+            <p class="text-indent">
+                为了便于学习，在Fruit Store中没有实现网上支付、配送等功能和服务。
+            </p>
+            <br/>
+
+            <h3>版权信息</h3>
+
+            <p class="text-indent">
+                <strong>Fruit Store</strong>
+                遵循Apache 2开源协议，完整内容请查看
+                <a href="http://skihat.cn/licence.html" target="_blank">Fruit Store授权协议</a>。
+            </p>
+            <p class="text-indent">
+                任何应用的开发都离不开别人的支持和帮助，在Fruit Store开发过程中，使用了以下开源应用和产品：
+            </p>
+            <ul>
+                <li><strong>bootstrap</strong>遵循<a href="http://www.apache.org/licenses/LICENSE-2.0.html"
+                                                   target="_blank"> Apache 2 版权协议</a>，版权归Twitter所有。
+                </li>
+                <li><strong>Font Awesome</strong> 遵循 <a href="http://scripts.sil.org/OFL" target="_blank">SIL Open Font
+                        License</a> 版权协议。
+                </li>
+            </ul>
+            <br/>
+
+            <h3>图片文字素材</h3>
+
+            <p class="text-indent">
+                Fruit Store 中使用的图片和文字素材都都来自于百度百科。
+            </p>
+
+            <p class="text-indent">
+                如果您在查阅中发现有侵权的内容，请您通过<a href="mailto:skihat.team@gmail.com">skihat.team@gmail.com</a>
+                告诉我们，我们将在最快时间内撤销相关的内容，阻止侵权行为的继续发生。
+            </p>
+        </div>
+    </div>
+<?php $this->endPlace(); ?>

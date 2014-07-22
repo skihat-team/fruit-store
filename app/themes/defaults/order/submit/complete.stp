@@ -1,0 +1,15 @@
+<?php $this->helpers('core'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <h2>提交订单成功</h2>
+    <hr/>
+    <div class="article">
+        <p class="text-indent">
+            感谢你的支持，你的订单已经成功进行系统，我们会在最快的时间里配送相关的商品到你支持的地址点。
+        </p>
+        <ul>
+            <li><a href="/">继续选购商品</a></li>
+            <li><a href="#">查看全部订单</a></li>
+        </ul>
+    </div>
+<?php $this->endPlace(); ?>

@@ -1,0 +1,135 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-xs-9">
+            <h2>订单处理&nbsp;&nbsp;
+                <span class="label label-info">
+                <?php if ($this['order']->status == Order::ORDER_STATUS_NEW) echo '新订单'; ?>
+                <?php if ($this['order']->status == Order::ORDER_STATUS_SHOPPING) echo '正在配送'; ?>
+                <?php if ($this['order']->status == Order::ORDER_STATUS_COMPLETE) echo '完成'; ?>
+                <?php if ($this['order']->status == Order::ORDER_STATUS_TRASH) echo '作废订单'; ?>
+                </span>
+            </h2>
+        </div>
+        <div class="col-xs-3">
+            <br/>
+
+            <div class="btn-toolbar">
+                <div class="btn-group pull-right">
+                    <a href="<?php _url_af('index'); ?>" class="btn btn-default">
+                        <i class="icon-double-angle-left"></i>
+                <span class="hidden-xs">
+                    返回上一级
+                </span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr/>
+<?php $form = new Form($this); ?>
+<?php $form->begin(array('class' => 'form-horizontal')); ?>
+<?php $form->hidden('order.id'); ?>
+<?php $order = $this['order']; ?>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="archive-group">
+                <ul class="archive-group-heading row list-unstyled">
+                    <li class="col-lg-7 col-md-7">商品名称</li>
+                    <li class="col-md-3">价格</li>
+                    <li class="col-md-2">数量</li>
+                </ul>
+                <?php $items = $this['items']->fields('OrderItem.goods,Goods.name,Goods.thumb,OrderItem.price,OrderItem.unit,OrderItem.amount,Goods.description')->links('Goods')->fetchObjects(); ?>
+                <?php foreach ($items as $item) { ?>
+                    <ul class="row list-unstyled archive-group-item ">
+                        <li class="col-lg-7 col-md-7">
+                            <a href="<?php _url_mca('goods', 'index', 'show', $item->goods); ?>" class="big-text"
+                               target="_blank"> <?php _h($item->name); ?> </a><br>
+                        </li>
+                        <li class="col-md-3"><?php _nice_currency($item->price); ?>元</li>
+                        <li class="col-md-2"><?php _e($item->amount); ?> <?php _h($item->unit); ?></li>
+                    </ul>
+                <?php } ?>
+                <hr/>
+                <ul class="row list-unstyled archive-group-heading">
+                    <li class="col-md-12">
+                        <strong class="price">总价：<?php _nice_currency($order->total); ?> 元 </strong>
+                    </li>
+                </ul>
+            </div>
+            <br/>
+
+            <h3>配送信息</h3>
+
+            <div class="archive-group">
+                <div class="archive-group-item">
+                    收货人：<strong><?php _h($order->consignee); ?></strong><br/>
+                </div>
+                <div class="archive-group-item">
+                    收货地址：<strong><?php _h($order->consignee_address); ?></strong><br/>
+                </div>
+                <div class="archive-group-item">
+                    联系电话：<strong><?php _h($order->telephone); ?></strong><br/>
+                </div>
+                <div class="archive-group-item">
+                    配送时间：<strong><?php _h($order->description); ?></strong><br/>
+                </div>
+                <br/>
+                <a href="<?php _url_a('print'); ?>" class="btn btn-default " target="_blank">
+                    <i class="icon-print"></i> 打印配送单
+                </a>
+            </div>
+            <br/>
+
+            <h3>订单说明</h3>
+
+            <p><?php _h($order->description); ?>
+            </p>
+        </div>
+        <div class="col-sm-3">
+            <div class="list-group">
+                <div class="list-group-item">
+                    <h4>订单报告</h4>
+
+                    <p class="help-block">
+                        订单编号：<?php _e($order->id); ?><br/>
+                        订购时间：<?php _nice_date_time($order->created); ?><br/>
+                        配送时间：<?php _nice_date_time($order->consignee_date); ?><br/>
+                    <hr/>
+                    总金额：<strong class="price"><?php _nice_currency($order->total); ?></strong> 元<br/>
+                    </p>
+                </div>
+                <div class="list-group-item">
+                    <h4>会员</h4>
+
+                    <p class="help-block">
+                        <small>
+                            会员名字：<?php _e($order->User->name); ?><br/>
+                            注册时间：<?php _nice_date($order->User->created); ?><br/>
+                        </small>
+                    </p>
+                    <p>
+                        <a href="<?php _url_mpca('ucenter', 'admins', 'index', 'edit', $order->user); ?>">查看会员</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class=" form-actions">
+        <?php if ($order->status == Order::ORDER_STATUS_NEW) { ?>
+            <button type="submit" name="action" value="shopping" class="btn btn-primary"><i class="icon-save"></i> 配送商品
+            </button>
+            <button type="submit" name="action" value="trash" class="btn btn-danger"><i class="icon-trash"></i> 订单作废
+            </button>
+        <?php } ?>
+        <?php if ($order->status == Order::ORDER_STATUS_SHOPPING) { ?>
+            <button type="submit" name="action" value="complete" class="btn btn-primary"><i class="icon-save"></i> 完成订单
+            </button>
+        <?php } ?>
+        <a href="<?php _url_af('index'); ?>" class="btn btn-default">返回</a>
+    </div>
+<?php $form->end(); ?>
+<?php $this->endPlace();

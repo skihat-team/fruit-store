@@ -1,0 +1,65 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>个人设置：<?php _e($this['identity']->name); ?></h2>
+        </div>
+    </div>
+<?php $form = new Form($this); ?>
+<?php $form->begin(array('class' => 'form-horizontal')); ?>
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-9">
+                <hr/>
+                <?php _text_message($this); ?>
+                <fieldset>
+                    <div class="form-group">
+                        <?php $form->label('user.name', array('title' => '登录名称：', 'class' => 'control-label col-md-2 col-sm-4')); ?>
+                        <div class="col-md-5 col-sm-7">
+                            <?php $form->text('user.name', array('class' => 'form-control', 'readonly' => true)); ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <?php $form->label('user.password', array('title' => '新密码：', 'class' => 'control-label col-md-2 col-sm-4')); ?>
+
+                        <div class="col-md-5 col-sm-7">
+                            <?php $form->password('user.password', array('class' => 'form-control', 'value' => '')); ?>
+                            <?php $form->help('user.password'); ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-4"> 确认密码：</label>
+
+                        <div class="col-md-5 col-sm-6">
+                            <input type="password" class="form-control"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-3">
+                <hr class="visible-sm visible-xs"/>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h4> 报告</h4>
+
+                        <p class="help-block">
+                            <small>
+                                创建时间：<?php _nice_date_time($this['identity']->created); ?><br/>
+                                最后登录：<?php _nice_date_time($this['identity']->login_lasted_date); ?><br/>
+                                登录地址：<?php _nice_date_time($this['identity']->login_lasted_address); ?><br/>
+                                登录次数：<?php _e($this['identity']->login_count); ?>次<br/>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
+            <a href="<?php _url_a('index'); ?>" class="btn btn-default">取消</a>
+        </div>
+    </form>
+
+<?php $this->endPlace();

@@ -1,0 +1,54 @@
+<?php if ($orders = $this['orders']->fetchModels()) { ?>
+    <div class="archive-group">
+        <ul class="list-unstyled row archive-group-heading">
+            <li class="col-sm-6">订单商品</li>
+            <li class="col-sm-4">收货人</li>
+            <li class="col-sm-2">金额</li>
+        </ul>
+        <?php foreach ($orders as $order) { ?>
+            <ul class="list-unstyled row archive-group-item">
+                <li class="col-sm-6">
+                    <?php $items = $order->Items->links('Goods')->fields('Goods.id as goods_id,Goods.name,Goods.thumb,OrderItem.unit,OrderItem.amount')->fetchObjects(); ?>
+                    <?php foreach ($items as $item) { ?>
+                        <p class="text-center pull-left">
+                            <a href="<?php _url_mca('goods', 'index', 'show', $item->goods_id); ?>"
+                               title="<?php _h($item->name); ?>" target="_blank">
+                                <img src="<?php _e($item->thumb); ?>" class="width-xs"/><br/>
+                                <?php _h($item->name); ?>
+                            </a>
+                        </p>
+                    <?php } ?>
+                </li>
+                <li class="col-sm-4">
+                    <?php _h($order->consignee); ?>
+                    【<?php _e(Order::statusNames($order->status)); ?>】
+                    <br/>
+                    <small class="inline-help">
+                        <?php _h($order->consignee_address); ?>
+                        <?php _h($order->telephone); ?>
+                    </small>
+                    <?php if ($order->status == Order::ORDER_STATUS_COMPLETE) { ?>
+                        <br/>
+                        <small class="inline-help">
+                            <?php _nice_date_time($order->shopping_date); ?>
+                        </small>
+                    <?php } ?>
+                </li>
+                <li class="col-sm-2">
+                    <strong class="price">
+                        <?php _nice_currency($order->total); ?>
+                    </strong><br/>
+                    <small>
+                        <?php _nice_date_time($order->created); ?>
+                    </small>
+                </li>
+            </ul>
+        <?php } ?>
+    </div>
+    <hr/>
+    <a href="<?php _url_mpca('order', 'ucenter'); ?>">查看全部订单</a>
+<?php } else { ?>
+    <p class="help-block">
+        当前还没有任何订单信息。
+    </p>
+<?php } ?>

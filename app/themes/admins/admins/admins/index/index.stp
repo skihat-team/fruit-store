@@ -1,0 +1,100 @@
+<?php
+Skihat::import('goods.models.goods', SKIHAT_PATH_APP_MODULES);
+Skihat::import('order.models.order', SKIHAT_PATH_APP_MODULES);
+Skihat::import('ucenter.models.ucenter_user', SKIHAT_PATH_APP_MODULES);
+?>
+<?php $this->helpers('core'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <h2>控制面板</h2>
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12">
+            <hr/>
+            <h3>商品</h3>
+
+            <div>
+                <p class="help-block">
+                    共有商品<?php _e(Goods::field('count(*)', array())); ?>种，
+                    上架商品<?php _e(Goods::field('count(*)', array('sale' => Goods::SALE))); ?>种，
+                    下架商品<?php _e(Goods::field('count(*)', array('sale <> ' => GOods::SALE))); ?>种，
+                    推荐<?php _e(Goods::field('count(*)', array('offer' => Goods::OFFER))); ?>种商品，
+                    置顶<?php _e(Goods::field('count(*)', array('home' => Goods::HOME))); ?>种商品。
+                </p>
+
+                <p>
+                    <a href="<?php _url_mpca('goods', 'admins'); ?>">全部商品</a>&nbsp;|&nbsp;
+                    <a href="<?php _url_mpca('goods', 'admins', 'index', 'new'); ?>">上架新商品</a>
+                </p>
+            </div>
+            <br/>
+
+            <div>
+                <h3> 会员</h3>
+
+                <p class="help-block">
+                    当前共有注册会员<?php _e(UcenterUser::field('count(*)', array())); ?>人，
+                    最近24小时注册<?php _e(UcenterUser::field('count(*)', array('created > ' => time() - 60 * 60 * 60 * 24))); ?>
+                    人，
+                    最近7天注册<?php _e(UcenterUser::field('count(*)', array('created > ' => time() - 60 * 60 * 60 * 24 * 7))); ?>
+                    人。
+                </p>
+
+                <p>
+                    <a href="<?php _url_mpca('ucenter', 'admins'); ?>"> 查看会员</a>
+                </p>
+            </div>
+            <br/>
+
+            <div>
+                <h3> 订单</h3>
+
+                <p class="help-block">
+                    当前共有订单<?php _e(Order::field('count(*)', array())); ?>个，
+                    未处理订单<?php _e(Order::field('count(*)', array('status' => Order::ORDER_STATUS_NEW))); ?>个。
+                </p>
+
+                <p>
+                    <a href="<?php _url_mpca('order', 'admins'); ?>"> 全部订单</a>
+                    &nbsp;|&nbsp;
+                    <a href="<?php _url(array('module' => 'order', 'package' => 'admins', 'status' => 1)); ?>"> 处理订单</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="list-group">
+                <div class="list-group-item">
+                    <h4> 当前账户
+                        【<?php _e($this['identity']->name); ?>】
+                    </h4>
+
+                    <p class="help-block">
+                        <small>
+                            当前账户创建于<?php _nice_date($this['identity']->created); ?>，
+                            共进行<?php _e($this['identity']->login_count); ?>次登录。
+                            <br/>
+                            最近一次登录在：<?php _nice_date_time($this['identity']->login_lasted_date); ?> <br/>
+                            最后登录IP地址为：<?php _e($this['identity']->login_lasted_address); ?>
+                        </small>
+                    </p>
+
+                    <p>
+                        <a href="<?php _url_mpca('admins', 'admins', 'profile'); ?>"> 个人设置</a>
+                    </p>
+                </div>
+                <div class="list-group-item">
+                    <h4> 管理员</h4>
+
+                    <p class="help-block">
+                        当前共有10名管理员，其中有3位禁止访问。
+                    </p>
+
+                    <p>
+                        <a href="<?php _url_mpca('admins', 'admins', 'user'); ?>"> 全部管理员</a>
+                        &nbsp;|&nbsp;
+                        <a href="<?php _url_mpca('admins', 'admins', 'user', 'new'); ?>"> 增加管理员</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $this->endPlace(); ?>

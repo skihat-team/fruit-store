@@ -1,0 +1,25 @@
+<footer class="layout-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <small>
+                    Copyright 2014 <a href="http://www.skihat.cn" title="了解更多">@skihat-team</a>
+                </small>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/plugins/jquery-latest.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="/plugins/html5shiv.min.js"></script>
+<script src="/plugins/respond.min.js"></script>
+<![endif]-->
+<script src="/plugins/jquery-fruit.js"></script>

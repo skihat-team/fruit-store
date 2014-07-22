@@ -1,0 +1,143 @@
+<?php $this->helpers('requery'); ?>
+<?php $req = new Requery($this->request); ?>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title><?php $this->place('title', '水果商店'); ?></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Fruit Store"/>
+    <!-- Bootstrap core CSS -->
+    <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/plugins/awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!--[if IE 7]>
+    <link href="/plugins/awesome/css/font-awesome-ie7.mini.css" rel="stylesheet"/>
+    <![endif]-->
+    <link href="/themes/defaults/style.css" rel="stylesheet"/>
+    <?php $this->place('head'); ?>
+</head>
+<body>
+<header class="layout-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-7">
+                <h1>
+                    <a href="javascript:void(0);" class="navbar-toggle" data-toggle="collapse"
+                       data-target=".navbar-collapse">
+                        <i class="icon-reorder"></i>
+                    </a>
+                    <a href="/" class="logo" title=" Maize">
+                        水果商店
+                    </a>
+                </h1>
+            </div>
+            <div class="col-xs-5">
+                <br/>
+
+                <p class="text-right">
+                    <small>
+                        <a href="<?php _url_mca('order') ?>">
+                            <i class="icon-shopping-cart"></i> <strong>购物车 <span id="cart"></span></strong>
+                        </a>
+                        &nbsp;|&nbsp;
+                        <span id="status"> </span>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="layout-navigators">
+    <div class="container">
+        <div class="collapse navbar-collapse">
+            <nav class="navbar navbar-silver">
+                <ul class="nav navbar-nav">
+                    <li <?php if ($req->is_caf('index', 'index')) echo 'class="active"'; ?>>
+                        <a href="/">主页</a>
+                    </li>
+                    <li <?php if ($req->is_m('goods') && $req->is_pv('id', false)) echo 'class="active"'; ?>>
+                        <a href="<?php _url_mca('goods'); ?>">全部水果</a>
+                    </li>
+                    <li <?php if ($req->is_m('goods') && $req->is_pv('id', 1)) echo 'class="active"'; ?>>
+                        <a href="<?php _url_mca('goods', 'index', 'index', 1); ?>">日常水果</a>
+                    </li>
+                    <li <?php if ($req->is_m('goods') && $req->is_pv('id', 3)) echo 'class="active"'; ?>>
+                        <a href="<?php _url_mca('goods', 'index', 'index', 3); ?>">热带水果</a>
+                    </li>
+                    <li  <?php if ($req->is_caf('index', 'about')) echo 'class="active"'; ?>>
+                        <a href="<?php _url_mca(null, 'index', 'about'); ?>">
+                            关于
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right visible-sm visible-xs">
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            搜索
+                            <i class="icon-angle-down"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <form class="form-inline">
+                                <div class="input-group">
+                                    <input type="text" class="form-control"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default"><i class="icon-search"></i></button>
+                                </span>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right visible-lg visible-md" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default"><i class="icon-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+            </nav>
+        </div>
+    </div>
+</nav>
+<div class="layout-banner">
+    <?php $this->place('banner', ''); ?>
+</div>
+<article class="layout-article">
+    <div class="container">
+        <?php $this->place('work', 'default work'); ?>
+    </div>
+</article>
+<footer class="layout-footer">
+    <div class="container">
+        <small>
+            <a href="<?php _url_mpca('admins', 'admins') ?>" target="_blank">@管理</a>
+            &nbsp;|&nbsp;
+            Copyright 2014 <a href="http://www.skihat.cn" title="了解更多">@skihat-team</a>
+        </small>
+    </div>
+</footer>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/plugins/jquery-latest.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="/plugins/html5shiv.min.js"></script>
+<script src="/plugins/respond.min.js"></script>
+<![endif]-->
+<script src="/plugins/jquery-fruit.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+            $('#cart').load("<?php _url_mca('order','index','total'); ?>");
+            $('#status').load("<?php _url_mca('ucenter','index','status'); ?>");
+        });
+    })(jQuery);
+</script>
+<?php $this->place('foot'); ?>
+</body>
+</html>

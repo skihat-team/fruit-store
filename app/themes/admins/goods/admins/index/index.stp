@@ -1,0 +1,143 @@
+<?php $this->helpers('core', 'paginate'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-sm-2">
+            <h2>商品</h2>
+        </div>
+        <div class="col-sm-10">
+            <br/>
+
+            <div class="btn-toolbar">
+                <div class="btn-group" style="width:200px;">
+                    <form action="<?php _url_a('search'); ?>" class="form-inline" method="POST">
+                        <div class="input-group">
+                            <input name="q" type="text" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="icon-search"></i></button>
+                        </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="btn-group dropdown">
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">分类 <i
+                            class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <?php $cats = $this['cats']->fetchList('id,name'); ?>
+                        <?php foreach ($cats as $id => $name) { ?>
+                            <li>
+                                <a href="<?php _url(array(SKIHAT_PARAM_ACTION => 'index', 'cat' => $id)); ?>"><?php _h($name); ?></a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <a href="<?php _url_af('home'); ?>" class="btn btn-default"
+                       data-toggle="fruit-post" data-fields="#chkGoods">
+                        <i class="icon-home"></i>
+                        <span class="hidden-xs"> 首页</span>
+                    </a>
+                    <a href="<?php _url_af('offer'); ?>" class="btn btn-default"
+                       data-toggle="fruit-post" data-fields="#chkGoods">
+                        <i class="icon-flag"></i>
+                        <span class="hidden-xs"> 推荐</span>
+                    </a>
+                    <a href="<?php _url_af('sale'); ?>" class="btn btn-default"
+                       data-toggle="fruit-post" data-fields="#chkGoods">
+                        <i class="icon-ok-circle"></i>
+                        <span class="hidden-xs"> 上架</span>
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <a href="javascript:void(0);" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-ban-circle"></i>
+                        <span class="hidden-xs"> 取消</span>
+                        <i class="icon-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php _url_af('cancel_home'); ?>"
+                               data-toggle="fruit-post" data-fields="#chkGoods">取消首页</a></li>
+                        <li><a href="<?php _url_af('cancel_offer'); ?>"
+                               data-toggle="fruit-post" data-fields="#chkGoods">取消推荐</a></li>
+                        <li class="divider"></li>
+                        <li><a href="<?php _url_af('cancel_sale'); ?>"
+                               data-toggle="fruit-post" data-fields="#chkGoods">商品下架</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <a href="<?php _url_a('new'); ?>" class="btn btn-default">
+                        <i class="icon-plus"></i>
+                        <span class="hidden-xs">新商品</span>
+                    </a>
+                </div>
+                <div class="btn-group pull-right">
+                    <a href="<?php _url_ca('category'); ?>" class="btn btn-default">
+                        <i class="icon-cog"></i>
+                        <span class="hidden-xs">分类管理</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+<?php _text_message($this); ?>
+<?php if ($goods = $this['goodsAll']->fields('Goods.id,Goods.name,Goods.thumb,Goods.home,Goods.offer,Goods.sale,Goods.created,Goods.modified,Goods.price,Goods.unit,GoodsCategory.id as cid,GoodsCategory.name as cat_name')->links('Category')->fetchObjects()) { ?>
+    <div class="archive-group" id="goodsAll">
+        <ul class="archive-group-heading row list-unstyled">
+            <li class="col-lg-7 col-md-6">
+                <label>
+                    <input type="checkbox" id="chkGoods" data-toggle="fruit-chkall"
+                           data-target="#goodsAll .archive-group-item"/>
+                </label>
+                &nbsp;商品信息
+            </li>
+            <li class="col-md-2">价格</li>
+            <li class="col-md-2">分类</li>
+            <li class="col-lg-1 col-md-2">操作</li>
+        </ul>
+        <?php foreach ($goods as $g) { ?>
+            <ul class="row list-unstyled archive-group-item click-trigger">
+                <li class="col-lg-7 col-md-6">
+                    <label class="pull-left">
+                        <input type="checkbox" value="<?php _e($g->id); ?>"/>&nbsp;&nbsp;
+                    </label>
+                    <?php if ($g->thumb) { ?>
+                        <img src="<?php _e($g->thumb); ?>" class="img-xs pull-left"/>&nbsp;
+                    <?php } ?>
+                    <a href="#" class="big-text">
+                        <?php if (!$g->sale) echo '<span class="red">[下架]</span>'; ?>
+                        <?php _h($g->name); ?>
+                    </a>
+                    &nbsp;&nbsp;
+                    <?php if ($g->home) echo '<i class="icon-home"></i>'; ?>
+                    <?php if ($g->offer) echo '<i class="icon-flag"></i>'; ?>
+                    <p>
+                        <small class="help-block">
+                            &nbsp;&nbsp;最后更新<?php _nice_date_time($g->modified); ?>
+                        </small>
+                    </p>
+                </li>
+                <li class="col-md-2">
+                    <?php _e($g->price); ?> / <?php _h($g->unit); ?>
+                </li>
+                <li class="col-md-2">
+                    <?php _h($g->cat_name); ?>
+                </li>
+                <li class="col-lg-1 col-md-2 text-center">
+                    <a href="<?php _url_af('edit', $g->id); ?>" class="btn btn-default btn-xs"><i class="icon-edit"></i></a>
+                    <a href="<?php _url_af('delete'); ?>" data-toggle="fruit-post"
+                       data-fields="{id:<?php _e($g->id); ?>}" class="btn btn-default btn-xs"><i class="icon-trash"></i></a>
+                </li>
+            </ul>
+        <?php } ?>
+    </div>
+    <div class="pagination-container">
+        <?php _paginate_numbers($this['goodsAll']); ?>
+    </div>
+<?php } else { ?>
+    <p class="help-block">
+        根据当前查询条件未找到任何满足要求的商品信息，
+        <a href="<?php _url_a('index'); ?>">点击查看全部商品。</a>
+    </p>
+<?php } ?>
+<?php $this->endPlace(); ?>

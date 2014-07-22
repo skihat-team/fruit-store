@@ -1,0 +1,227 @@
+/**
+ * Skihat Maize
+ */
+
+.layout-header {
+    margin: 5px 0;
+}
+
+.layout-header .logo {
+    color: #2ecc71;
+}
+
+.layout-header .navbar-toggle {
+    color: #151515;
+    float: none;
+}
+
+.layout-navigators {
+    border-bottom: solid 1px #dedede;
+    margin-bottom: 10px;
+}
+
+.layout-navigators .navbar-toggle {
+    background: #2ecc71;
+}
+
+.layout-banner {
+    color: #FFF;
+}
+
+.layout-article {
+
+}
+
+.layout-footer {
+    border-top: solid 1px #e0e0e0;
+    margin-top: 50px;
+    padding: 15px 0;
+}
+
+.navbar-silver {
+    background: #FFF;
+    margin-bottom: 0;
+    border: none;
+}
+
+.navbar-silver .nav > li:first-child {
+    border-left: solid 1px #f0f0f0;
+}
+
+.navbar-silver .nav > li > a {
+    border-top: solid 1px #f0f0f0;
+    border-right: solid 1px #f0f0f0;
+    padding: 15px 25px;
+    color: #444;
+}
+
+.navbar-silver .nav > li.active > a {
+    border-right: solid 1px #2ecc71;
+    border-top: solid 1px #2ecc71;
+    background: #2ecc71;
+    color: #FFF;
+}
+
+.navbar-silver .nav .open > a,
+.navbar-silver .nav .open > a:hover,
+.navbar-silver .nav .open > a:focus {
+    border-color: transparent;
+}
+
+.navbar-silver .nav .dropdown-menu form {
+    padding: 6px 10px;
+}
+
+.navbar-silver .input-group {
+    width: 250px;
+}
+
+.list-group-unstyled {
+    border: none;
+}
+
+.list-group-unstyled li {
+    border: none;
+}
+
+.btn .hidden-xs,
+.btn .hidden-sm,
+.btn .hidden-md {
+    display: inline !important;
+}
+
+@media (max-width: 767px) {
+    .btn .hidden-xs {
+        display: none !important;
+    }
+}
+
+.archive-group {
+
+}
+
+.archive-group-heading {
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.archive-group-item {
+    border-top: solid 1px #dedede;
+    padding: 10px 0 5px 0;
+    margin: 0;
+}
+
+.archive-group-item:hover {
+    background: #fafafa;
+}
+
+.goods-detail {
+}
+
+.goods-detail p {
+    text-indent: 2em;
+    line-height: 1.8em;
+}
+
+.big-text {
+    font-size: 1.05em;
+}
+
+.inline-help {
+    color: #999;
+}
+
+.pagination-container {
+    text-align: center;
+}
+
+.pagination {
+
+}
+
+.pagination li > a, .pagination li > span {
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.pagination li.active span {
+    background: #2ecc71;
+    border-color: #29b765;
+}
+
+.form-control {
+    -webkit-transition: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.alert h4 {
+    margin: 0;
+}
+
+.form-actions {
+    padding: 10px;
+}
+
+strong.price {
+    font-size: 16px;
+    line-height: 1em;
+}
+
+.unbordered {
+    border: none;
+}
+
+.text-indent {
+    text-indent: 2em;
+}
+
+.width-full {
+    width: 100%;
+}
+
+.width-xs {
+    width: 80px;
+}
+
+.width-sm {
+    width: 200px;
+}
+
+.img-xs {
+    width: 80px;
+}
+
+.img-sm {
+    width: 120px;
+}
+
+.height-xs {
+    height: 100px;
+    overflow: hidden;
+}
+
+.absolute-middle {
+    position: absolute;
+    left: 0;
+    top: 5px;
+}
+
+p {
+    padding: 2px;
+    margin: 0;
+}
+
+span.red {
+    color: #d2322d;
+    font-weight: bold;
+}
+
+input.input-error {
+    background: #f7e1b5;
+    border: solid 1px #d2322d;
+}
+
+em.input-error {
+    color: #ac2925;
+}

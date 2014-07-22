@@ -1,0 +1,114 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-xs-9">
+            <h2>会员：<?php _h($this['user']->name); ?></h2>
+        </div>
+        <div class="col-xs-3 text-right">
+            <br/>
+            <a href="<?php _url_a('index'); ?>" class="btn btn-default">
+                <i class="icon-double-angle-left"></i>
+                <span class="hidden-xs">
+                    返回上一级
+                </span>
+            </a>
+        </div>
+    </div>
+    <hr/>
+<?php $form = new Form($this); ?>
+<?php $form->begin(array('class' => 'form-horizontal')); ?>
+<?php $form->hidden('user.id'); ?>
+    <div class="row">
+        <div class="col-md-9">
+            <fieldset>
+                <div class="form-group">
+                    <?php $form->label('user.name', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '会员名字：')); ?>
+                    <div class="col-md-5 col-sm-7">
+                        <?php $form->text('user.name', array('class' => 'form-control')); ?>
+                        <?php $form->help('user.name'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('user.email', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '电子邮件：')); ?>
+                    <div class="col-md-5 col-sm-7">
+                        <?php $form->email('user.email', array('class' => 'form-control')); ?>
+                        <?php $form->help('user.email'); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>安全密码</legend>
+                <p class="help-block">
+                    <small>
+                        不更新密码请保持密码为空。
+                    </small>
+                </p>
+
+                <div class="form-group">
+                    <?php $form->label('user.password', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '安全密码：')); ?>
+                    <div class="col-md-5 col-sm-6">
+                        <?php $form->password('user.password', array('value' => '', 'class' => 'form-control')); ?>
+                        <?php $form->help('user.password'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('user.confirm_password', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '重复密码：')); ?>
+                    <div class="col-md-5 col-sm-6">
+                        <?php $form->password('user.confirm_password', array('class' => 'form-control')); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>访问账户</legend>
+                <div class="radio col-md-offset-1">
+                    <label>
+                        <?php $form->radio('user.allow_access', '1'); ?>
+                        允许访问，允许账户登录和访问系统。
+                    </label>
+                </div>
+                <div class="radio col-md-offset-1">
+                    <label>
+                        <?php $form->radio('user.allow_access', '0'); ?>
+                        禁止访问，禁止账户登录和访问系统。
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="col-md-3">
+            <hr class="visible-sm visible-xs"/>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <h4>会员报告</h4>
+
+                    <p class="help-block">
+                        <small>
+                            创建时间：<?php _nice_date_time($this['user']->created); ?><br/>
+                            最后登录：<?php _nice_date_time($this['user']->login_lasted_date); ?><br/>
+                            登录地址：<?php _h($this['user']->login_lasted_address); ?>
+                        </small>
+                    </p>
+                </div>
+                <div class="list-group-item">
+                    <h4>订单</h4>
+
+                    <p class="help-block">
+                        <small>
+                            会员共有订单11个，总金额<strong>120.00</strong>元。
+                        </small>
+                    </p>
+                    <p>
+                        <a href="<?php _url_mpca('order', 'admins'); ?>">查看订单</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
+        <a href="<?php _url_a('index'); ?>" class="btn btn-default">取消</a>
+    </div>
+<?php $form->end(); ?>
+<?php $this->endPlace();

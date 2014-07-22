@@ -1,0 +1,17 @@
+<?php $this->helpers('core', 'paginate'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <h2>我的账户 - 订单</h2>
+    <div class="row">
+        <div class="col-md-9">
+            <hr/>
+            <?php $this->inflateFile('__elements.orders'); ?>
+            <div class="pagination-container">
+                <?php _paginate_numbers($this['orders']); ?>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <?php $this->inflateFile('__elements.profile'); ?>
+        </div>
+    </div>
+<?php $this->endPlace(); ?>

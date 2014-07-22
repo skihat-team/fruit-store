@@ -1,0 +1,20 @@
+<?php $this->helpers('core'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <h2>我的账户</h2>
+    <div class="row">
+        <div class="col-md-9">
+            <hr/>
+            <?php _text_message($this); ?>
+            <?php Skihat::import('order.models.order', SKIHAT_PATH_APP_MODULES); ?>
+            <?php $this['orders'] = Order::fetchAll(
+                array('Order.user' => $this['identity']->id),
+                array(Model::SYNTAX_PAGE => array(1, 4), Model::SYNTAX_ORDER => 'Order.status asc ,Order.id desc')
+            ); ?>
+            <?php $this->inflateFile('__elements.orders'); ?>
+        </div>
+        <div class="col-md-3">
+            <?php $this->inflateFile('__elements.profile'); ?>
+        </div>
+    </div>
+<?php $this->endPlace(); ?>

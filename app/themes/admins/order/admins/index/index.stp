@@ -1,0 +1,88 @@
+<?php $this->helpers('core', 'paginate'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-sm-2">
+            <h1>订单</h1>
+        </div>
+        <div class="col-sm-10">
+            <br/>
+
+            <div class="btn-toolbar">
+                <div class="btn-group width-sm">
+                    <div class="input-group">
+                        <input type="text" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default"><i class="icon-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="btn-group dropdown">
+                    <a href="javascript:void(0);" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        订单状态 <i class="icon-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php _url_apv('index', 'status', 1); ?>">最新订单</a></li>
+                        <li><a href="<?php _url_apv('index', 'status', 2); ?>">正在配送</a></li>
+                        <li><a href="<?php _url_apv('index', 'status', 3); ?>">已完成</a></li>
+                        <li><a href="<?php _url_apv('index', 'status', 4); ?>">已取消</a></li>
+                        <li class="divider"></li>
+                        <li><a href="<?php _url_a('index'); ?>">取消</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+<?php _text_message($this); ?>
+    <div class="archive-group">
+        <?php if ($orders = $this['orders']->fetchObjects()) { ?>
+            <ul class="archive-group-heading row list-unstyled">
+                <li class="col-md-1">订单号</li>
+                <li class="col-md-5">收货人</li>
+                <li class="col-md-3">下单时间</li>
+                <li class="col-md-1">状态</li>
+                <li class="col-md-1 text-center">金额</li>
+            </ul>
+            <?php foreach ($orders as $order) { ?>
+                <ul class="archive-group-item row list-unstyled">
+                    <li class="col-md-1"><?php _e($order->id); ?></li>
+                    <li class="col-md-5">
+                        <a class="big-text" href="<?php _url_af('process', $order->id); ?>">
+                            <?php _h($order->consignee); ?>
+                            <small class="inline-help">
+                                重庆市九龙坡区沙杨路69号11-2 &nbsp;|&nbsp;<strong>13333333333</strong>
+                            </small>
+                        </a>&nbsp;
+                    </li>
+                    <li class="col-md-3"><?php _nice_date_time($order->created); ?></li>
+                    <li class="col-md-1">
+                        <?php switch ($order->status) {
+                            case Order::ORDER_STATUS_NEW:
+                                echo '新订单';
+                                break;
+                            case Order::ORDER_STATUS_COMPLETE:
+                                echo '已完成';
+                                break;
+                            case Order::ORDER_STATUS_SHOPPING:
+                                echo '正在配送';
+                                break;
+                            default:
+                                echo '无效订单';
+                        }?>
+                    </li>
+                    <li class="col-md-2 text-center">
+                        <?php _nice_currency($order->total); ?>元
+                    </li>
+                </ul>
+            <?php } ?>
+            <div class="pagination-container">
+                <?php _paginate_numbers($this['orders']); ?>
+            </div>
+        <?php } else { ?>
+            <p>根据查询条件，未找到任何满足条件的订单。
+                <a href="<?php _url_a('index'); ?>">点击查看全部</a>
+            </p>
+        <?php } ?>
+    </div>
+<?php $this->endPlace(); ?>

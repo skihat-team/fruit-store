@@ -1,0 +1,32 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('empty'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-lg-7 col-md-8 col-sm-10 col-xs-12">
+            <?php $form = new Form($this); ?>
+            <?php $form->begin(array('class' => 'form-horizontal')); ?>
+            <?php _text_message($this); ?>
+            <br/>
+            <fieldset>
+                <div class="form-group">
+                    <?php $form->label('user.name', array('title' => '用户名：', 'class' => 'control-label col-md-3')); ?>
+                    <div class="col-md-6">
+                        <?php $form->text('user.name', array('class' => 'form-control')); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('user.password', array('title' => '密码：', 'class' => 'control-label col-md-3')); ?>
+                    <div class="col-md-6">
+                        <?php $form->password('user.password', array('class' => 'form-control', 'value' => '')); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-7 col-md-offset-2">
+                        <button type="submit" class="btn btn-primary btn-block">登录</button>
+                    </div>
+                </div>
+            </fieldset>
+            <?php $form->end(); ?>
+        </div>
+    </div>
+<?php $this->endPlace(); ?>

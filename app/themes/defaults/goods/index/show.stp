@@ -1,0 +1,60 @@
+<?php $this->helpers('core'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+<?php $goods = $this['goods']; ?>
+    <h2><?php _h($goods->name); ?></h2>
+    <hr/>
+    <div class="row">
+        <div class="col-md-5 col-sm-6 col-xs-7">
+            <img src="<?php _e($goods->thumb); ?>" class="img-rounded width-full"/>
+        </div>
+        <div class="col-md-7 col-sm-6 col-xs-12">
+            <h4><?php _e($goods->name); ?></h4>
+
+            <p class="help-block">
+                <small>
+                    <?php _h($goods->description); ?>
+                </small>
+            </p>
+            <p>
+                <strong>分类：</strong>
+                <a href="<?php _url_a('index', $goods->Category->id); ?>">
+                    <?php _h($goods->Category->name); ?>
+                </a>
+            </p>
+            <hr/>
+            <form action="<?php _url_mca('order', 'index', 'add'); ?>" METHOD="POST">
+                <input name="goods" type="hidden" value="<?php _e($goods->id); ?>" />
+                <p>
+                    <strong>产品价格：</strong>
+                    <strong class="price">￥<?php _e($goods->price); ?>元/<?php _h($goods->unit); ?></strong>
+                </p>
+                <p>
+                    <label>
+                        <strong>购买数量：</strong>
+                        <input name="amount" type="text" value="1" class="width-xs"/>
+                    </label>
+                </p>
+                <hr/>
+                <button type="submit" class="btn btn-default btn-primary">
+                    <i class="icon-cart"></i>加入购物车
+                </button>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+            <h4>简介</h4>
+            <hr/>
+            <div class="goods-detail">
+                <?php _e($goods->Detail->detail); ?>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <hr class="visible-sm visible-xs"/>
+            <?php $this->inflateFile('__elements.offers'); ?>
+        </div>
+    </div>
+
+<?php $this->endPlace(); ?>

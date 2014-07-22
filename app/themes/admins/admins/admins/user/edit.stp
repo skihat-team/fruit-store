@@ -1,0 +1,104 @@
+<?php $this->helpers('core', 'form'); ?>
+<?php $this->layout('default'); ?>
+<?php $this->beginPlace('work'); ?>
+    <div class="row">
+        <div class="col-xs-9">
+            <h2>管理员：<?php _h($this['user']->name); ?></h2>
+        </div>
+        <div class="col-xs-3 text-right">
+            <br/>
+            <a href="<?php _url_af('index'); ?>" class="btn btn-default">
+                <i class="icon-double-angle-left"></i>
+                <span class="hidden-xs">
+                    返回上一级
+                </span>
+            </a>
+        </div>
+    </div>
+    <hr/>
+<?php _text_message($this); ?>
+<?php $form = new Form($this); ?>
+<?php $form->begin(array('class' => 'form-horizontal')); ?>
+<?php $form->hidden('user.id'); ?>
+    <div class="row">
+        <div class="col-md-9">
+            <fieldset>
+                <p class="help-block">
+                    如果不修改密码，请保持密码为空。
+                </p>
+                <br/>
+
+                <div class="form-group">
+                    <?php $form->label('user.name', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '登录名称：')); ?>
+                    <div class="col-md-5 col-sm-7">
+                        <?php $form->text('user.name', array('class' => 'form-control')); ?>
+                        <?php $form->help('user.name'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('user.password', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '新密码：')); ?>
+                    <div class="col-md-5 col-sm-7">
+                        <?php $form->password('user.password', array('class' => 'form-control', 'value' => '')); ?>
+                        <?php $form->help('user.password'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('user.confirm_password', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '确认密码：')); ?>
+                    <div class="col-md-5 col-sm-6">
+                        <?php $form->password('user.confirm_password', array('class' => 'form-control')); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $form->label('user.description', array('class' => 'control-label col-md-2 col-sm-4', 'title' => '说明：')); ?>
+                    <div class="col-md-7 col-sm-10">
+                        <?php $form->textarea('user.description', array('class' => 'form-control')); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>访问账户</legend>
+                <div class="radio col-md-offset-1">
+                    <label>
+                        <?php $form->radio('user.allow_access', array('value' => '1')); ?>
+                        允许访问，允许账户登录和访问系统。
+                    </label>
+                </div>
+                <div class="radio col-md-offset-1">
+                    <label>
+                        <?php $form->radio('user.allow_access', '0'); ?>
+                        禁止访问，禁止账户登录和访问系统。
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="col-md-3">
+            <hr class="visible-sm visible-xs"/>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <h4>报告</h4>
+
+                    <p class="help-block">
+                        <small>
+                            创建时间：<?php _nice_date_time($this['user']->created); ?><br/>
+                            最后登录：<?php if ($this['user']->login_lasted_date) { ?>
+                                <?php _nice_date_time($this['user']->login_lasted_date); ?>
+                            <?php } else { ?>
+                                未进行登录
+                            <?php } ?><br/>
+                            登录地址：<?php _h($this['user']->login_lasted_address); ?><br/>
+                            登录次数：<?php _e($this['user']->login_count); ?>次<br/>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
+        <a href="<?php _url_af('index'); ?>" class="btn btn-default">取消</a>
+    </div>
+    </form>
+
+<?php $this->endPlace();

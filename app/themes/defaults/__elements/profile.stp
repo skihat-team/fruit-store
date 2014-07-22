@@ -1,0 +1,44 @@
+<?php
+Skihat::import('order.models.order', SKIHAT_PATH_APP_MODULES);
+$allOrder = Order::field('count(*)', array('Order.user' => $this['identity']->id));
+$currOrder = Order::field('count(*)', array('Order.user' => $this['identity']->id, 'status' => array(Order::ORDER_STATUS_SHOPPING, Order::ORDER_STATUS_NEW)));
+?>
+<ul class="list-group">
+    <li class="list-group-item">
+        <h4>
+            <?php _e($this['identity']->name); ?>
+            <a href="<?php _url_mpca('ucenter', 'ucenter'); ?>" title="会员中心" class="pull-right">
+                <i class="icon-home"></i>
+            </a>
+        </h4>
+
+        <p>
+            <?php _mail_to($this['identity']->email); ?>
+        </p>
+
+        <p class="help-block">
+            <small>
+                <strong>注册时间：</strong><?php _nice_date_time($this['identity']->created); ?><br/>
+                <strong>最的登录时间：</strong><?php _nice_date_time($this['identity']->login_lasted_date); ?>
+            </small>
+        </p>
+        <p>
+            <a href="<?php _url_mpca('ucenter', 'ucenter', 'index', 'profile'); ?>" title="更新用户资料">更新资料</a>
+            &nbsp;|&nbsp;
+            <a href="<?php _url_mpca('ucenter', 'ucenter', 'index', 'password'); ?>">更新密码</a>
+        </p>
+    </li>
+    <li class="list-group-item">
+        <h4>订单</h4>
+
+        <p class="help-block">
+            <small>
+                <strong>订单总数：</strong> <?php _e($allOrder); ?> 个<br/>
+                <strong>当前订单：</strong> <?php _e($currOrder); ?> 个
+            </small>
+        </p>
+        <p>
+            <a href="<?php _url_mpca('order', 'ucenter'); ?>">全部订单</a>
+        </p>
+    </li>
+</ul>
