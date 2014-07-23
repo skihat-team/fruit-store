@@ -68,9 +68,12 @@ abstract class ApplicationBase {
      */
     public function globalComplete() {
         # 如果在执行过程中发生错误。
-        if ($error = error_get_last()) {
-            $message = $this->_errorMessage($error['type'], $error['message'], $error['file'], $error['line']);
-            $this->_invokeError(new SkihatException($message, $error['type']));
+        if (!SKIHAT_DEBUG && $error = error_get_last()) {
+            # 如果发生的错误是严重的错误。
+            if (in_array($error['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR))) {
+                $message = $this->_errorMessage($error['type'], $error['message'], $error['file'], $error['line']);
+                $this->_invokeError(new SkihatException($message, $error['type']));
+            }
         }
 
         $this->_outputResponse();

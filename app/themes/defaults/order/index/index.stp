@@ -1,7 +1,7 @@
 <?php $this->helpers('core'); ?>
 <?php $this->layout('default'); ?>
-<?php $this->inflateProc(function () { ?>
-    <?php _text_message($this); ?>
+<?php $this->beginPlace('work'); ?>
+<?php _text_message($this); ?>
     <div class="cart">
         <ul class="row list-unstyled">
             <li class="col-md-8 col-sm-7 col-xs-8">
@@ -79,7 +79,7 @@
             </p>
         <?php } ?>
     </div>
-<?php }, array(), 'work'); ?>
+<?php $this->endPlace(); ?>
 <?php $this->beginPlace('foot'); ?>
     <script type="text/javascript">
         $('.amount').on('blur', function () {
