@@ -44,6 +44,19 @@ Skihat::import('models.model_fetch', SKIHAT_PATH_LIBRARY);
 Skihat::import('models.model_links', SKIHAT_PATH_LIBRARY);
 Skihat::import('models.model_meta', SKIHAT_PATH_LIBRARY);
 
+
+/**
+ * 根据模型和字段名称，判断字段的唯一性。
+ *
+ * @param Model $model 模型实例。
+ * @param bool  $field 字段名称。
+ *
+ * @return boolean
+ */
+function unique_validator(Model $model, $field) {
+    return $model->fetchUnique($field);
+}
+
 /**
  * MVC模型，提供使用ActiveRecord模式的模式支持。
  *
@@ -746,6 +759,45 @@ abstract class Model implements ArrayAccess, IModelMetaSupport {
     }
 
     /**
+     * 根据$field、$conditions和$syntax查询单个字段的值。
+     *
+     * @param  string $field      字段名称。
+     * @param  mixed  $conditions 查询条件。
+     * @param array   $syntax     查询语法。
+     *
+     * @return mixed
+     */
+    public static function fetchField($field, $conditions, array $syntax = array()) {
+        $syntax = self::defaultSyntax($syntax, $conditions);
+        $syntax[self::SYNTAX_FIELDS] = $field;
+
+        $rows = self::database()->fetchAll($syntax, self::FETCH_STYLE_NUM);
+        return empty($rows) ? false : $rows[0][0];
+    }
+
+    /**
+     * 返回当前$field的字段判断，是否是唯一值。
+     *
+     * @param string $field 字段名称；
+     *
+     * @return boolean
+     */
+    public function fetchUnique($field) {
+        # 如果字段的值为空，直接返回true。
+        if (empty($this->_currentProps[$field])) return true;
+
+        if ($this->isNew()) {
+            $row = self::fetchField($field, array($field => $this[$field]), array(self::SYNTAX_PAGE => 1));
+        } else {
+            $row = self::fetchField($field, array(
+                self::primaryKey() . ' <> ' => $this->key(),
+                $field => $this[$field]), array(self::SYNTAX_PAGE => 1));
+        }
+
+        return empty($row);
+    }
+
+    /**
      * 使用$conditions和$syntax查询单个模型记录，如果有多个记录将什么满足条件的第一个记录。
      *
      * @param mixed $conditions 查询条件。
@@ -768,22 +820,6 @@ abstract class Model implements ArrayAccess, IModelMetaSupport {
         else return self::createModel($rows, $syntax);
     }
 
-    /**
-     * 根据$field、$conditions和$syntax查询单个字段的值。
-     *
-     * @param  string $field      字段名称。
-     * @param  mixed  $conditions 查询条件。
-     * @param array   $syntax     查询语法。
-     *
-     * @return mixed
-     */
-    public static function field($field, $conditions, array $syntax = array()) {
-        $syntax = self::defaultSyntax($syntax, $conditions);
-        $syntax[self::SYNTAX_FIELDS] = $field;
-
-        $rows = self::database()->fetchAll($syntax, self::FETCH_STYLE_NUM);
-        return empty($rows) ? false : $rows[0][0];
-    }
 
     /**
      * 使用$cmd和$args进行查询操作，结果结果为二维数组。
