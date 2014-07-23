@@ -218,7 +218,7 @@ class ModelFetch implements IDataSupport {
      */
     public function fetchCount() {
         $modelName = $this->_modelName;
-        $count = $modelName::field('COUNT(*) AS COUNT', array(), $this->_syntax);
+        $count = $modelName::fetchField('COUNT(*) AS COUNT', array(), $this->_syntax);
         return $count ? $count : 0;
     }
 
