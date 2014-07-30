@@ -14,11 +14,11 @@ Skihat::import('ucenter.models.ucenter_user', SKIHAT_PATH_APP_MODULES);
 
             <div>
                 <p class="help-block">
-                    共有商品<?php _e(Goods::field('count(*)', array())); ?>种，
-                    上架商品<?php _e(Goods::field('count(*)', array('sale' => Goods::SALE))); ?>种，
-                    下架商品<?php _e(Goods::field('count(*)', array('sale <> ' => GOods::SALE))); ?>种，
-                    推荐<?php _e(Goods::field('count(*)', array('offer' => Goods::OFFER))); ?>种商品，
-                    置顶<?php _e(Goods::field('count(*)', array('home' => Goods::HOME))); ?>种商品。
+                    共有商品<?php _e(Goods::fetchField('count(*)', array())); ?>种，
+                    上架商品<?php _e(Goods::fetchField('count(*)', array('sale' => Goods::SALE))); ?>种，
+                    下架商品<?php _e(Goods::fetchField('count(*)', array('sale <> ' => GOods::SALE))); ?>种，
+                    推荐<?php _e(Goods::fetchField('count(*)', array('offer' => Goods::OFFER))); ?>种商品，
+                    置顶<?php _e(Goods::fetchField('count(*)', array('home' => Goods::HOME))); ?>种商品。
                 </p>
 
                 <p>
@@ -32,10 +32,10 @@ Skihat::import('ucenter.models.ucenter_user', SKIHAT_PATH_APP_MODULES);
                 <h3> 会员</h3>
 
                 <p class="help-block">
-                    当前共有注册会员<?php _e(UcenterUser::field('count(*)', array())); ?>人，
-                    最近24小时注册<?php _e(UcenterUser::field('count(*)', array('created > ' => time() - 60 * 60 * 60 * 24))); ?>
+                    当前共有注册会员<?php _e(UcenterUser::fetchField('count(*)', array())); ?>人，
+                    最近24小时注册<?php _e(UcenterUser::fetchField('count(*)', array('created > ' => time() - 60 * 60 * 60 * 24))); ?>
                     人，
-                    最近7天注册<?php _e(UcenterUser::field('count(*)', array('created > ' => time() - 60 * 60 * 60 * 24 * 7))); ?>
+                    最近7天注册<?php _e(UcenterUser::fetchField('count(*)', array('created > ' => time() - 60 * 60 * 60 * 24 * 7))); ?>
                     人。
                 </p>
 
@@ -49,8 +49,8 @@ Skihat::import('ucenter.models.ucenter_user', SKIHAT_PATH_APP_MODULES);
                 <h3> 订单</h3>
 
                 <p class="help-block">
-                    当前共有订单<?php _e(Order::field('count(*)', array())); ?>个，
-                    未处理订单<?php _e(Order::field('count(*)', array('status' => Order::ORDER_STATUS_NEW))); ?>个。
+                    当前共有订单<?php _e(Order::fetchField('count(*)', array())); ?>个，
+                    未处理订单<?php _e(Order::fetchField('count(*)', array('status' => Order::ORDER_STATUS_NEW))); ?>个。
                 </p>
 
                 <p>
